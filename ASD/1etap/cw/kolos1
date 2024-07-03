@@ -1,0 +1,87 @@
+def pos_counting_sort(A, pos):
+    n = len(A)
+    B = [0] * 26
+    res = [None] * n
+    
+    for i in range(n):
+        B[ord(A[i][pos]) - 97] += 1
+
+    for i in range(1, 26):
+        B[i] += B[i - 1]
+
+    for i in range(n - 1, -1, -1):
+        B[ord(A[i][pos]) - 97]-=1
+        res[B[ord(A[i][pos]) - 97]] = A[i]
+    return res
+def string_sort(T):
+    n=len(T)
+    if n<2:
+        return
+    maxi=len(T[0])
+    mini=len(T[0])
+    for i in T:
+        maxi=max(len(i),maxi)
+        mini=min(len(i),mini)
+    size=maxi-mini+1
+    bucket=[[] for _ in range(size)]
+    for word in T:
+        bucket[len(word)-mini].append(word)
+    
+    res=[]
+    for i in range(size-1,-1,-1):
+        res+=bucket[i]
+        res=pos_counting_sort(res,i)
+    for i in range(n):
+        T[i]=res[i]
+
+def pos_counting_sort(A, pos):
+    n = len(A)
+    B = [0] * 26
+    res = [None] * n
+
+    for i in range(n):
+        B[ord(A[i][pos]) - 97] += 1
+
+    for i in range(1, 26):
+        B[i] += B[i - 1]
+
+    for i in range(n - 1, -1, -1):
+        B[ord(A[i][pos]) - 97] -= 1
+        res[B[ord(A[i][pos]) - 97]] = A[i]
+
+    return res
+
+def string_sort(T):
+    n = len(T)
+    if n < 2:
+        return
+    maxi = len(T[0])
+    mini = len(T[0])
+    for i in T:
+        maxi = max(len(i), maxi)
+        mini = min(len(i), mini)
+    size = maxi - mini + 1
+    bucket = [[] for _ in range(size)]
+    for word in T:
+        bucket[len(word) - mini].append(word)
+    res = []
+    for i in range(size - 1, -1, -1):
+        res += bucket[i]
+        res = pos_counting_sort(res, i)
+    for i in range(n):
+        T[i] = res[i]
+
+
+def sort_liniowy(P, max_value):
+    n = len(P)
+    T = [0] * (max_value + 1)
+    for i in range(n):
+        T[P[i]] += 1
+    for i in range(1, max_value + 1):
+        T[i] += T[i - 1]
+    T2 = [0] * (n + 1)
+    for i in range(n - 1, -1, -1):
+        T2[T[P[i]]] = P[i]
+        T[P[i]] -= 1
+    return T2[1:]
+
