@@ -1,1 +1,1 @@
-###ASD 2023/24 Offline Kolokwia i Pierwszy Egzamin
+ASD 2023/24 Offline Kolokwia i Pierwszy Egzamin
